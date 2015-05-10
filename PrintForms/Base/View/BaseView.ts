@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../Core/View/DependencyObject.ts"/>
-module Base.View {
-    export class BaseView<T extends Core.ComponentModel.INotifyPropertyChanged> extends Core.View.DependencyObject<T> {
+module PF.View {
+    export class BaseView<T extends ComponentModel.BaseViewModel> extends PF.View.DependencyObject<T> {
 
         protected element: any;
 

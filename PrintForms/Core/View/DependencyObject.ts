@@ -1,26 +1,15 @@
-﻿ /**
+﻿///<reference path="../Annotation/Property"/> 
+/**
     * User-inteface namespace
     * @namespace
     */
-module Core.View {
+module PF.View {
     /**
       * @class
       */
     export class DependencyObject<T extends ComponentModel.INotifyPropertyChanged> {
-        private _dataContext: T = null;
-        private registeredProperties = new Array<String>();
-
-        constructor() {
-            this.registerProperties(this.registeredProperties);
-        }
-
-        /* 
-        * 
-        * 
-        */
-        protected registerProperties(propertyList:Array<String>):void {
-
-        }
+        private _dataContext: T = undefined;
+        protected static registeredProperties = new Array<string>();
 
 
         public get dataContext(): T {
@@ -37,7 +26,7 @@ module Core.View {
         }
 
         protected initializeDataContext() {
-            this.registeredProperties.forEach((propertyKey:string) => {
+            this.constructor["registeredProperties"].forEach((propertyKey: string) => {
                 this[propertyKey] = this._dataContext[propertyKey];
             });
 
@@ -45,7 +34,9 @@ module Core.View {
         }
 
         protected onDataContextPropertyChanged(e: ComponentModel.PropertyChangedData) {
-            this[e.name] = e.value;
+            if (this[e.name] !== e.value) {
+                this[e.name] = e.value;
+            }
         }
     }
 }

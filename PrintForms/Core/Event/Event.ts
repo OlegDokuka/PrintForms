@@ -1,7 +1,7 @@
 ﻿/// <reference path="Interface/IEvent.ts" />
-// Base View Module -------
-// Realize base view class and halper classes such as Point and etc.
-module Core.Event {
+// PF View Module -------
+// Realize PF view class and halper classes such as Point and etc.
+module PF.Event {
     export class Event<ArgType>
     {
         private Callbacks: Interface.ICallbackDesc<ArgType>[] = [];

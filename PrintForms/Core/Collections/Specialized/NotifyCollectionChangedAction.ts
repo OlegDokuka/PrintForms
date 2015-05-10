@@ -1,5 +1,5 @@
 ﻿ 
-module Core.Collections.Specialized {
+module PF.Collections.Specialized {
     export enum NotifyCollectionChangedAction {
         Add,
         Move,

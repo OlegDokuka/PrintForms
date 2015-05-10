@@ -1,4 +1,4 @@
-﻿module Base.View.Interface {
+﻿module PF.View.Interface {
     export interface IContainer {
         removeViewAt: (index: number) => boolean;
         removeViews: (start: number, count: number) => boolean;

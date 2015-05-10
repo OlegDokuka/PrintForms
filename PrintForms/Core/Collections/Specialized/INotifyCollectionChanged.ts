@@ -1,4 +1,4 @@
-﻿module Core.Collections.Specialized {
+﻿module PF.Collections.Specialized {
     /**
     *   Notifies listeners of dynamic changes, 
     *   such as when items get added and removed 

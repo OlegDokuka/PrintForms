@@ -1,4 +1,4 @@
-﻿module Base.View.Interface {
+﻿module PF.View.Interface {
     export interface IDrop {
         onDrop:(dragged: IDrag)=>void;
     }

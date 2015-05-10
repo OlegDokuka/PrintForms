@@ -1,4 +1,4 @@
-﻿module Core.Collections.ObjectModel {
+﻿module PF.Collections.ObjectModel {
     export class ObservableCollection<T> implements ComponentModel.INotifyPropertyChanged, Collections.Specialized.INotifyCollectionChanged {
         private _collection: T[] = new Array<T>();
         private _observer = new CollectionObserver<T>().observe(this);
@@ -98,12 +98,12 @@
 
         /**
           * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
-          * @param start The zero-based location in the array from which to start removing elements.
+          * @param start The zero-PFd location in the array from which to start removing elements.
           */
         public splice(start: number): T[] 
         /**
           * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
-          * @param start The zero-based location in the array from which to start removing elements.
+          * @param start The zero-PFd location in the array from which to start removing elements.
           * @param deleteCount The number of elements to remove.
           * @param items Elements to insert into the array in place of the deleted elements.
           */

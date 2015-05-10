@@ -1,4 +1,4 @@
-﻿module Core.Component {
+﻿module PF.Component {
     export interface IObserver<T> {
         observe: (object: T) => IObserver<T>;
         unobserve: () => void;

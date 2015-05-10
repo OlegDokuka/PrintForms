@@ -1,8 +1,9 @@
-﻿module Base.View {
+﻿module PF.View {
     export class ViewFactory {
         private static registeredViews = [];
         private static registeredViewModels = [];
-        public static create<T extends Core.ComponentModel.INotifyPropertyChanged>(viewModel: T): View<T> {
+
+        public static create<T extends PF.ComponentModel.BaseViewModel>(viewModel: T): View<T> {
             var index: number = ViewFactory.registeredViewModels.indexOf(viewModel.constructor),
                 viewCtor: { new (): View<T> },
                 view: View<T>;
@@ -17,7 +18,7 @@
             return view;
         }
 
-        public static register<T extends Core.ComponentModel.INotifyPropertyChanged>(viewModel: { new (): T; }, view: { new (): View<T> }) {
+        public static register<T extends PF.ComponentModel.BaseViewModel>(viewModel: { new (): T; }, view: { new (): View<T> }) {
             ViewFactory.registeredViews.push(view);
             ViewFactory.registeredViewModels.push(viewModel);
         }

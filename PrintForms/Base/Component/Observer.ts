@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../Core/Component/IObserver"/>
-module Base.Component {
-    export class Observer<T> implements Core.Component.IObserver<T> {
+module PF.Component {
+    export class Observer<T> implements PF.Component.IObserver<T> {
         constructor(callback: (data: any) => void) {
         }
         public observe(object: Object): Observer<T> {
@@ -11,7 +11,7 @@ module Base.Component {
         }
 
         public silent(): T {
-            return null;
+            return undefined;
         }
     }
 

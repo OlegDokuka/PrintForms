@@ -1,11 +1,8 @@
 ﻿///<reference path="../../Base/View/View"/>
-module Base.View {
+module PF.View {
+    import property = Annotation.property;
+    @test
     export class TextView extends View<ComponentModel.TextViewModel>{
-
-        protected registerProperties(propertyList: Array<String>): void {
-            super.registerProperties(propertyList);
-            propertyList.push("text");
-        }
         protected createElement() {
             this.element = $("<input>");
         }
@@ -15,11 +12,15 @@ module Base.View {
             super.initializeElement();
         }
 
+        @property
         public get text(): string {
             return this.element.val();
         }
         public set text(text: string) {
             this.element.val(text);
         }
+    }
+    function test() {
+
     }
 }

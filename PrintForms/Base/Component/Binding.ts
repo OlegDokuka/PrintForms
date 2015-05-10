@@ -1,9 +1,9 @@
-﻿module Base.Component {
+﻿module PF.Component {
     export class Binding {
         public sourcePropertyName: string;
         public targetPropertyName: string;
-        public source: Core.ComponentModel.INotifyPropertyChanged;
-        public target: Core.View.DependencyObject<Core.ComponentModel.INotifyPropertyChanged>;
+        public source: ComponentModel.INotifyPropertyChanged;
+        public target: View.DependencyObject<ComponentModel.INotifyPropertyChanged>;
 
         private _targetProxy: Proxy;
         private _sourceProxy: Proxy;
@@ -36,7 +36,7 @@
             * Set dependency object to binding 
             * @param target View in other word
             * **/
-            public connect<T extends Core.ComponentModel.INotifyPropertyChanged>(target: Core.View.DependencyObject<T>): BuilderHelper {
+            public connect<T extends ComponentModel.INotifyPropertyChanged>(target: View.DependencyObject<T>): BuilderHelper {
                 this._binding.target = target;
                 return new BuilderHelper(this, this._binding, "targetPropertyName");
             }
@@ -45,7 +45,7 @@
             * Set view model to binding 
             * @param source ViewModel in other word
             * **/
-            public with(source: Core.ComponentModel.INotifyPropertyChanged): BuilderHelper {
+            public with(source: ComponentModel.INotifyPropertyChanged): BuilderHelper {
                 this._binding.source = source;
                 return new BuilderHelper(this, this._binding, "sourcePropertyName");
             }
@@ -56,7 +56,7 @@
             }
 
 
-            public static create():Builder {
+            public static create(): Builder {
                 return new Builder();
             }
         }

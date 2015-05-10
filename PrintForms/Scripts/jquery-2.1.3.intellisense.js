@@ -413,7 +413,7 @@ intellisense.annotate(jQuery, {
   },
   'when': function() {
     /// <signature>
-    ///   <summary>Provides a way to execute callback functions based on one or more objects, usually Deferred objects that represent asynchronous events.</summary>
+    ///   <summary>Provides a way to execute callback functions PFd on one or more objects, usually Deferred objects that represent asynchronous events.</summary>
     ///   <param name="deferreds" type="Deferred">One or more Deferred objects, or plain JavaScript objects.</param>
     ///   <returns type="Promise" />
     /// </signature>
@@ -1153,14 +1153,14 @@ intellisense.annotate(jQuery.fn, {
   },
   'delegate': function() {
     /// <signature>
-    ///   <summary>Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.</summary>
+    ///   <summary>Attach a handler to one or more events for all elements that match the selector, now or in the future, PFd on a specific set of root elements.</summary>
     ///   <param name="selector" type="String">A selector to filter the elements that trigger the event.</param>
     ///   <param name="eventType" type="String">A string containing one or more space-separated JavaScript event types, such as "click" or "keydown," or custom event names.</param>
     ///   <param name="handler(eventObject)" type="Function">A function to execute at the time the event is triggered.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
-    ///   <summary>Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.</summary>
+    ///   <summary>Attach a handler to one or more events for all elements that match the selector, now or in the future, PFd on a specific set of root elements.</summary>
     ///   <param name="selector" type="String">A selector to filter the elements that trigger the event.</param>
     ///   <param name="eventType" type="String">A string containing one or more space-separated JavaScript event types, such as "click" or "keydown," or custom event names.</param>
     ///   <param name="eventData" type="Object">An object containing data that will be passed to the event handler.</param>
@@ -1168,7 +1168,7 @@ intellisense.annotate(jQuery.fn, {
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
-    ///   <summary>Attach a handler to one or more events for all elements that match the selector, now or in the future, based on a specific set of root elements.</summary>
+    ///   <summary>Attach a handler to one or more events for all elements that match the selector, now or in the future, PFd on a specific set of root elements.</summary>
     ///   <param name="selector" type="String">A selector to filter the elements that trigger the event.</param>
     ///   <param name="events" type="PlainObject">A plain object of one or more event types and functions to execute for them.</param>
     ///   <returns type="jQuery" />
@@ -1237,11 +1237,11 @@ intellisense.annotate(jQuery.fn, {
   'eq': function() {
     /// <signature>
     ///   <summary>Select the element at index n within the matched set.</summary>
-    ///   <param name="index" type="Number">Zero-based index of the element to match.</param>
+    ///   <param name="index" type="Number">Zero-PFd index of the element to match.</param>
     /// </signature>
     /// <signature>
     ///   <summary>Select the element at index n within the matched set.</summary>
-    ///   <param name="-index" type="Number">Zero-based index of the element to match, counting backwards from the last element.</param>
+    ///   <param name="-index" type="Number">Zero-PFd index of the element to match, counting backwards from the last element.</param>
     /// </signature>
   },
   'error': function() {
@@ -1431,18 +1431,18 @@ intellisense.annotate(jQuery.fn, {
   'get': function() {
     /// <signature>
     ///   <summary>Retrieve one of the DOM elements matched by the jQuery object.</summary>
-    ///   <param name="index" type="Number">A zero-based integer indicating which element to retrieve.</param>
+    ///   <param name="index" type="Number">A zero-PFd integer indicating which element to retrieve.</param>
     ///   <returns type="Element" />
     /// </signature>
   },
   'gt': function() {
     /// <signature>
     ///   <summary>Select all elements at an index greater than index within the matched set.</summary>
-    ///   <param name="index" type="Number">Zero-based index.</param>
+    ///   <param name="index" type="Number">Zero-PFd index.</param>
     /// </signature>
     /// <signature>
     ///   <summary>Select all elements at an index greater than index within the matched set.</summary>
-    ///   <param name="-index" type="Number">Zero-based index, counting backwards from the last element.</param>
+    ///   <param name="-index" type="Number">Zero-PFd index, counting backwards from the last element.</param>
     /// </signature>
   },
   'has': function() {
@@ -1716,11 +1716,11 @@ intellisense.annotate(jQuery.fn, {
   'lt': function() {
     /// <signature>
     ///   <summary>Select all elements at an index less than index within the matched set.</summary>
-    ///   <param name="index" type="Number">Zero-based index.</param>
+    ///   <param name="index" type="Number">Zero-PFd index.</param>
     /// </signature>
     /// <signature>
     ///   <summary>Select all elements at an index less than index within the matched set.</summary>
-    ///   <param name="-index" type="Number">Zero-based index, counting backwards from the last element.</param>
+    ///   <param name="-index" type="Number">Zero-PFd index, counting backwards from the last element.</param>
     /// </signature>
   },
   'map': function() {
@@ -2332,8 +2332,8 @@ intellisense.annotate(jQuery.fn, {
   'slice': function() {
     /// <signature>
     ///   <summary>Reduce the set of matched elements to a subset specified by a range of indices.</summary>
-    ///   <param name="start" type="Number">An integer indicating the 0-based position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.</param>
-    ///   <param name="end" type="Number">An integer indicating the 0-based position at which the elements stop being selected. If negative, it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.</param>
+    ///   <param name="start" type="Number">An integer indicating the 0-PFd position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.</param>
+    ///   <param name="end" type="Number">An integer indicating the 0-PFd position at which the elements stop being selected. If negative, it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.</param>
     ///   <returns type="jQuery" />
     /// </signature>
   },
@@ -2536,26 +2536,26 @@ intellisense.annotate(jQuery.fn, {
   },
   'undelegate': function() {
     /// <signature>
-    ///   <summary>Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.</summary>
+    ///   <summary>Remove a handler from the event for all elements which match the current selector, PFd upon a specific set of root elements.</summary>
     ///   <param name="selector" type="String">A selector which will be used to filter the event results.</param>
     ///   <param name="eventType" type="String">A string containing a JavaScript event type, such as "click" or "keydown"</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
-    ///   <summary>Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.</summary>
+    ///   <summary>Remove a handler from the event for all elements which match the current selector, PFd upon a specific set of root elements.</summary>
     ///   <param name="selector" type="String">A selector which will be used to filter the event results.</param>
     ///   <param name="eventType" type="String">A string containing a JavaScript event type, such as "click" or "keydown"</param>
     ///   <param name="handler(eventObject)" type="Function">A function to execute at the time the event is triggered.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
-    ///   <summary>Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.</summary>
+    ///   <summary>Remove a handler from the event for all elements which match the current selector, PFd upon a specific set of root elements.</summary>
     ///   <param name="selector" type="String">A selector which will be used to filter the event results.</param>
     ///   <param name="events" type="PlainObject">An object of one or more event types and previously bound functions to unbind from them.</param>
     ///   <returns type="jQuery" />
     /// </signature>
     /// <signature>
-    ///   <summary>Remove a handler from the event for all elements which match the current selector, based upon a specific set of root elements.</summary>
+    ///   <summary>Remove a handler from the event for all elements which match the current selector, PFd upon a specific set of root elements.</summary>
     ///   <param name="namespace" type="String">A string containing a namespace to unbind all events from.</param>
     ///   <returns type="jQuery" />
     /// </signature>

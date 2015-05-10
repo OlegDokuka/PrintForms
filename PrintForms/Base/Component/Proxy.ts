@@ -1,4 +1,4 @@
-﻿module Base.Component {
+﻿module PF.Component {
     export class Proxy {
         private oldPropertyDescriptor: PropertyDescriptor;
         private object: Object;

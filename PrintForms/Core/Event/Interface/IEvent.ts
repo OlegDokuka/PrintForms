@@ -1,6 +1,6 @@
-﻿// Base View Module -------
-// Realize base view class and halper classes such as Point and etc.
-module Core.Event.Interface {
+﻿// PF View Module -------
+// Realize PF view class and halper classes such as Point and etc.
+module PF.Event.Interface {
     export interface ICallback<ArgType> {
         (arg: ArgType, context?: any);
     }

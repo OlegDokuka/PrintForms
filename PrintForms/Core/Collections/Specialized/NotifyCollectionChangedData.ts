@@ -1,4 +1,4 @@
-﻿module Core.Collections.Specialized {
+﻿module PF.Collections.Specialized {
     /**
     *   Provides data for the CollectionChanged event.
     **/
@@ -37,7 +37,7 @@
     }
 }
 
-module Core.Collections.Specialized.NotifyCollectionChangedData {
+module PF.Collections.Specialized.NotifyCollectionChangedData {
     /**
     *   Provides data for the CollectionChanged event.
     **/

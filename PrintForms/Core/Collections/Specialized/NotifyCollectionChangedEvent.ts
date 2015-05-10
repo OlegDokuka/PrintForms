@@ -1,5 +1,5 @@
 ﻿///<reference path="../../Event/Event.ts"/> 
-module Core.Collections.Specialized {
+module PF.Collections.Specialized {
     export class NotifyCollectionChangedEvent extends Event.Event<NotifyCollectionChangedData>{
 
     }

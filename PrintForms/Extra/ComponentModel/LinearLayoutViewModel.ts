@@ -1,6 +1,9 @@
 ﻿/// <reference path="../../Base/ComponentModel/GroupViewModel"/>
-module Base.ComponentModel {
+module PF.ComponentModel {
+    import handler = Annotation.handler;
+
     export class LinearLayoutViewModel extends GroupViewModel {
-        private _orientation: any;
+        @handler("onPropertyChanged")
+        public orientation: any;
     }
 }

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -7,15 +7,16 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <OutputPath>bin</OutputPath>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
-    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.5</TypeScriptToolsVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.css" />
@@ -55,6 +56,8 @@
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\attrchange.js" />
+    <Content Include="Scripts\attrchange_ext.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
@@ -64,17 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
-    <TypeScriptCompile Include="Base\ComponentModel\BaseContainerViewModel.ts" />
     <TypeScriptCompile Include="Base\ComponentModel\BaseViewModel.ts" />
     <TypeScriptCompile Include="Base\ComponentModel\GroupViewModel.ts" />
     <TypeScriptCompile Include="Base\ComponentModel\ObservableViewModel.ts" />
     <TypeScriptCompile Include="Base\Component\Binding.ts" />
     <TypeScriptCompile Include="Base\Component\Observer.ts" />
     <TypeScriptCompile Include="Base\Component\Proxy.ts" />
-    <TypeScriptCompile Include="Base\View\BaseContainerView.ts" />
     <TypeScriptCompile Include="Base\View\BaseView.ts" />
-    <TypeScriptCompile Include="Base\View\DraggableView.ts" />
-    <TypeScriptCompile Include="Base\View\DroppableContainerView.ts" />
     <TypeScriptCompile Include="Base\View\GroupView.ts" />
     <TypeScriptCompile Include="Base\View\Interface\IChild.ts" />
     <TypeScriptCompile Include="Base\View\Interface\IContainer.ts" />
@@ -83,6 +82,8 @@
     <TypeScriptCompile Include="Base\View\View.ts" />
     <TypeScriptCompile Include="Base\View\ViewFactory.ts" />
     <TypeScriptCompile Include="Base\View\ViewScope.ts" />
+    <TypeScriptCompile Include="Core\Annotation\Handler.ts" />
+    <TypeScriptCompile Include="Core\Annotation\Property.ts" />
     <TypeScriptCompile Include="Core\Collections\ObjectModel\ObservableCollection.ts" />
     <TypeScriptCompile Include="Core\Collections\Specialized\INotifyCollectionChanged.ts" />
     <TypeScriptCompile Include="Core\Collections\Specialized\NotifyCollectionChangedAction.ts" />
@@ -94,6 +95,7 @@
     <TypeScriptCompile Include="Core\Component\IObserver.ts" />
     <TypeScriptCompile Include="Core\Event\Event.ts" />
     <TypeScriptCompile Include="Core\Event\Interface\IEvent.ts" />
+    <TypeScriptCompile Include="Core\Type\Class.ts" />
     <TypeScriptCompile Include="Core\View\DependencyObject.ts" />
     <TypeScriptCompile Include="Extra\ComponentModel\DocumentViewModel.ts" />
     <TypeScriptCompile Include="Extra\ComponentModel\LinearLayoutViewModel.ts" />
@@ -101,6 +103,14 @@
     <TypeScriptCompile Include="Extra\View\DocumentView.ts" />
     <TypeScriptCompile Include="Extra\View\LinearLayout.ts" />
     <TypeScriptCompile Include="Extra\View\TextView.ts" />
+    <TypeScriptCompile Include="MEF\Annotation\Inject.ts" />
+    <TypeScriptCompile Include="MEF\Annotation\Injection.ts" />
+    <TypeScriptCompile Include="MEF\Annotation\Resolve.ts" />
+    <TypeScriptCompile Include="MEF\Component\Injector.ts" />
+    <TypeScriptCompile Include="MEF\Component\Interface\Injectable.ts" />
+    <TypeScriptCompile Include="MEF\Component\Interface\Resolvable.ts" />
+    <TypeScriptCompile Include="MEF\Component\Interface\Singleton.ts" />
+    <TypeScriptCompile Include="MEF\Component\Resolver.ts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="web.Debug.config">
@@ -112,6 +122,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extra\View\Interface\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
@@ -142,6 +160,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptRemoveComments>false</TypeScriptRemoveComments>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptOutFile>compiled.js</TypeScriptOutFile>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <TypeScriptRemoveComments>true</TypeScriptRemoveComments>

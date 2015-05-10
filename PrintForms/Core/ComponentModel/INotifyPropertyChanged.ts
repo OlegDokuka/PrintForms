@@ -1,4 +1,4 @@
-﻿module Core.ComponentModel {
+﻿module PF.ComponentModel {
     export interface INotifyPropertyChanged {
         propertyChanged: PropertyChangedEvent;
     }

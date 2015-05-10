@@ -1,16 +1,28 @@
-﻿module Base.View {
-    export class LinearLayout<T extends Base.ComponentModel.GroupViewModel> extends GroupView<T>{
-        private _orientation: LinearLayout.LayoutOrientation = LinearLayout.LayoutOrientation.VERTICAL;
+﻿module PF.View {
+    import property = Annotation.property;
 
-        protected registerProperties(propertyList: Array<String>): void {
-            super.registerProperties(propertyList);
-            propertyList.push("orientation");
+    export class LinearLayout<T extends ComponentModel.LinearLayoutViewModel> extends GroupView<T>{
+
+        protected createElement() {
+            this.element = $("<div>");
+        }
+        protected initializeElement() {
+            this.element.attr("ui-linear-layout", "");
+            this.element.attrchange((event) => {
+                if (event.attributeName === "ui-layout-orientation") {
+                    this.setValue("orientation");
+                }
+            });
+            super.initializeElement();
         }
 
+        @property
         public get orientation(): LinearLayout.LayoutOrientation {
-            return this._orientation
+            return this.element.attr("ui-layout-orientation");
         }
-        pub
+        public set orientation(val: LinearLayout.LayoutOrientation) {
+            this.element.attr("ui-layout-orientation", val);
+        }
     }
 
     export module LinearLayout {

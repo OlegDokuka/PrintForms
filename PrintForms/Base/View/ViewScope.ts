@@ -1,24 +1,25 @@
-﻿module Base.View {
-    import INotifyPropertyChanged = Core.ComponentModel.INotifyPropertyChanged;
-    export class ViewScope {
-        private static _domElementList = new Array<HTMLElement>();
-        private static _viewList = new Array<View<INotifyPropertyChanged>>();
+﻿module PF.View {
+    import BaseViewModel = PF.ComponentModel.BaseViewModel;
 
-        public static put<T extends View<INotifyPropertyChanged>>(domElement: HTMLElement, view: T): void {
+    export class ViewScope {
+        private static domElementList = new Array<HTMLElement>();
+        private static viewList = new Array<View<BaseViewModel>>();
+
+        public static put<T extends View<BaseViewModel>>(domElement: HTMLElement, view: T): void {
             var position: number;
 
-            position = ViewScope._domElementList.push(domElement);
-            ViewScope._viewList.push(view);
+            position = ViewScope.domElementList.push(domElement);
+            ViewScope.viewList.push(view);
         }
-        public static get<T extends View<INotifyPropertyChanged>>(domElement: HTMLElement): T {
-            var index = ViewScope._domElementList.indexOf(domElement),
+        public static get<T extends View<BaseViewModel>>(domElement: HTMLElement): T {
+            var index = ViewScope.domElementList.indexOf(domElement),
                 view: T;
 
             if (index < 0) {
                 throw new Error("No registered view for DOM element");
             }
 
-            return <T>ViewScope._viewList[index];
+            return <T>ViewScope.viewList[index];
         }
     }
 }

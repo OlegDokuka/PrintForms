@@ -1,6 +1,6 @@
 /*! jQuery UI - v1.11.4 - 2015-03-11
 * http://jqueryui.com
-* Includes: core.js, widget.js, mouse.js, position.js, accordion.js, autocomplete.js, button.js, datepicker.js, dialog.js, draggable.js, droppable.js, effect.js, effect-blind.js, effect-bounce.js, effect-clip.js, effect-drop.js, effect-explode.js, effect-fade.js, effect-fold.js, effect-highlight.js, effect-puff.js, effect-pulsate.js, effect-scale.js, effect-shake.js, effect-size.js, effect-slide.js, effect-transfer.js, menu.js, progressbar.js, resizable.js, selectable.js, selectmenu.js, slider.js, sortable.js, spinner.js, tabs.js, tooltip.js
+* Includes: PF.js, widget.js, mouse.js, position.js, accordion.js, autocomplete.js, button.js, datepicker.js, dialog.js, draggable.js, droppable.js, effect.js, effect-blind.js, effect-bounce.js, effect-clip.js, effect-drop.js, effect-explode.js, effect-fade.js, effect-fold.js, effect-highlight.js, effect-puff.js, effect-pulsate.js, effect-scale.js, effect-shake.js, effect-size.js, effect-slide.js, effect-transfer.js, menu.js, progressbar.js, resizable.js, selectable.js, selectmenu.js, slider.js, sortable.js, spinner.js, tabs.js, tooltip.js
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
 
 (function( factory ) {
@@ -15,14 +15,14 @@
 	}
 }(function( $ ) {
 /*!
- * jQuery UI Core 1.11.4
+ * jQuery UI PF 1.11.4
  * http://jqueryui.com
  *
  * Copyright jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
  *
- * http://api.jqueryui.com/category/ui-core/
+ * http://api.jqueryui.com/category/ui-PF/
  */
 
 
@@ -342,8 +342,8 @@ $.cleanData = (function( orig ) {
 	};
 })( $.cleanData );
 
-$.widget = function( name, base, prototype ) {
-	var fullName, existingConstructor, constructor, basePrototype,
+$.widget = function( name, PF, prototype ) {
+	var fullName, existingConstructor, constructor, PFPrototype,
 		// proxiedPrototype allows the provided prototype to remain unmodified
 		// so that it can be used as a mixin for multiple widgets (#8876)
 		proxiedPrototype = {},
@@ -353,8 +353,8 @@ $.widget = function( name, base, prototype ) {
 	fullName = namespace + "-" + name;
 
 	if ( !prototype ) {
-		prototype = base;
-		base = $.Widget;
+		prototype = PF;
+		PF = $.Widget;
 	}
 
 	// create selector for plugin
@@ -387,11 +387,11 @@ $.widget = function( name, base, prototype ) {
 		_childConstructors: []
 	});
 
-	basePrototype = new base();
+	PFPrototype = new PF();
 	// we need to make the options hash a property directly on the new instance
 	// otherwise we'll modify the options hash on the prototype that we're
 	// inheriting from
-	basePrototype.options = $.widget.extend( {}, basePrototype.options );
+	PFPrototype.options = $.widget.extend( {}, PFPrototype.options );
 	$.each( prototype, function( prop, value ) {
 		if ( !$.isFunction( value ) ) {
 			proxiedPrototype[ prop ] = value;
@@ -399,10 +399,10 @@ $.widget = function( name, base, prototype ) {
 		}
 		proxiedPrototype[ prop ] = (function() {
 			var _super = function() {
-					return base.prototype[ prop ].apply( this, arguments );
+					return PF.prototype[ prop ].apply( this, arguments );
 				},
 				_superApply = function( args ) {
-					return base.prototype[ prop ].apply( this, args );
+					return PF.prototype[ prop ].apply( this, args );
 				};
 			return function() {
 				var __super = this._super,
@@ -421,11 +421,11 @@ $.widget = function( name, base, prototype ) {
 			};
 		})();
 	});
-	constructor.prototype = $.widget.extend( basePrototype, {
+	constructor.prototype = $.widget.extend( PFPrototype, {
 		// TODO: remove support for widgetEventPrefix
 		// always use the name + a colon as the prefix, e.g., draggable:start
-		// don't prefix for widgets that aren't DOM-based
-		widgetEventPrefix: existingConstructor ? (basePrototype.widgetEventPrefix || name) : name
+		// don't prefix for widgets that aren't DOM-PFd
+		widgetEventPrefix: existingConstructor ? (PFPrototype.widgetEventPrefix || name) : name
 	}, proxiedPrototype, {
 		constructor: constructor,
 		namespace: namespace,
@@ -442,14 +442,14 @@ $.widget = function( name, base, prototype ) {
 			var childPrototype = child.prototype;
 
 			// redefine the child widget using the same prototype that was
-			// originally used, but inherit from the new version of the base
+			// originally used, but inherit from the new version of the PF
 			$.widget( childPrototype.namespace + "." + childPrototype.widgetName, constructor, child._proto );
 		});
 		// remove the list of existing child constructors from the old constructor
 		// so the old child constructors can be garbage collected
 		delete existingConstructor._childConstructors;
 	} else {
-		base._childConstructors.push( constructor );
+		PF._childConstructors.push( constructor );
 	}
 
 	$.widget.bridge( name, constructor );
@@ -1174,7 +1174,7 @@ $.fn.position = function( options ) {
 	// make a copy, we don't want to modify arguments
 	options = $.extend( {}, options );
 
-	var atOffset, targetWidth, targetHeight, targetOffset, basePosition, dimensions,
+	var atOffset, targetWidth, targetHeight, targetOffset, PFPosition, dimensions,
 		target = $( options.of ),
 		within = $.position.getWithinInfo( options.within ),
 		scrollInfo = $.position.getScrollInfo( within ),
@@ -1190,7 +1190,7 @@ $.fn.position = function( options ) {
 	targetHeight = dimensions.height;
 	targetOffset = dimensions.offset;
 	// clone to reuse original targetOffset later
-	basePosition = $.extend( {}, targetOffset );
+	PFPosition = $.extend( {}, targetOffset );
 
 	// force my and at to have valid horizontal and vertical positions
 	// if a value is missing or invalid, it will be converted to center
@@ -1230,20 +1230,20 @@ $.fn.position = function( options ) {
 	}
 
 	if ( options.at[ 0 ] === "right" ) {
-		basePosition.left += targetWidth;
+		PFPosition.left += targetWidth;
 	} else if ( options.at[ 0 ] === "center" ) {
-		basePosition.left += targetWidth / 2;
+		PFPosition.left += targetWidth / 2;
 	}
 
 	if ( options.at[ 1 ] === "bottom" ) {
-		basePosition.top += targetHeight;
+		PFPosition.top += targetHeight;
 	} else if ( options.at[ 1 ] === "center" ) {
-		basePosition.top += targetHeight / 2;
+		PFPosition.top += targetHeight / 2;
 	}
 
 	atOffset = getOffsets( offsets.at, targetWidth, targetHeight );
-	basePosition.left += atOffset[ 0 ];
-	basePosition.top += atOffset[ 1 ];
+	PFPosition.left += atOffset[ 0 ];
+	PFPosition.top += atOffset[ 1 ];
 
 	return this.each(function() {
 		var collisionPosition, using,
@@ -1254,7 +1254,7 @@ $.fn.position = function( options ) {
 			marginTop = parseCss( this, "marginTop" ),
 			collisionWidth = elemWidth + marginLeft + parseCss( this, "marginRight" ) + scrollInfo.width,
 			collisionHeight = elemHeight + marginTop + parseCss( this, "marginBottom" ) + scrollInfo.height,
-			position = $.extend( {}, basePosition ),
+			position = $.extend( {}, PFPosition ),
 			myOffset = getOffsets( offsets.my, elem.outerWidth(), elem.outerHeight() );
 
 		if ( options.my[ 0 ] === "right" ) {
@@ -1380,7 +1380,7 @@ $.ui.position = {
 			// too far right -> align with right edge
 			} else if ( overRight > 0 ) {
 				position.left -= overRight;
-			// adjust based on position and margin
+			// adjust PFd on position and margin
 			} else {
 				position.left = max( position.left - collisionPosLeft, position.left );
 			}
@@ -1417,7 +1417,7 @@ $.ui.position = {
 			// too far down -> align with bottom edge
 			} else if ( overBottom > 0 ) {
 				position.top -= overBottom;
-			// adjust based on position and margin
+			// adjust PFd on position and margin
 			} else {
 				position.top = max( position.top - collisionPosTop, position.top );
 			}
@@ -1511,7 +1511,7 @@ $.ui.position = {
 		body = document.getElementsByTagName( "body" )[ 0 ],
 		div = document.createElement( "div" );
 
-	//Create a "fake body" for testing based on method used in jQuery.support
+	//Create a "fake body" for testing PFd on method used in jQuery.support
 	testElement = document.createElement( body ? "div" : "body" );
 	testElementStyle = {
 		visibility: "hidden",
@@ -2678,7 +2678,7 @@ var menu = $.widget( "ui.menu", {
 	},
 
 	nextPage: function( event ) {
-		var item, base, height;
+		var item, PF, height;
 
 		if ( !this.active ) {
 			this.next( event );
@@ -2688,11 +2688,11 @@ var menu = $.widget( "ui.menu", {
 			return;
 		}
 		if ( this._hasScroll() ) {
-			base = this.active.offset().top;
+			PF = this.active.offset().top;
 			height = this.element.height();
 			this.active.nextAll( ".ui-menu-item" ).each(function() {
 				item = $( this );
-				return item.offset().top - base - height < 0;
+				return item.offset().top - PF - height < 0;
 			});
 
 			this.focus( event, item );
@@ -2703,7 +2703,7 @@ var menu = $.widget( "ui.menu", {
 	},
 
 	previousPage: function( event ) {
-		var item, base, height;
+		var item, PF, height;
 		if ( !this.active ) {
 			this.next( event );
 			return;
@@ -2712,11 +2712,11 @@ var menu = $.widget( "ui.menu", {
 			return;
 		}
 		if ( this._hasScroll() ) {
-			base = this.active.offset().top;
+			PF = this.active.offset().top;
 			height = this.element.height();
 			this.active.prevAll( ".ui-menu-item" ).each(function() {
 				item = $( this );
-				return item.offset().top - base + height > 0;
+				return item.offset().top - PF + height > 0;
 			});
 
 			this.focus( event, item );
@@ -3381,7 +3381,7 @@ var autocomplete = $.ui.autocomplete;
 
 
 var lastActive,
-	baseClasses = "ui-button ui-widget ui-state-default ui-corner-all",
+	PFClasses = "ui-button ui-widget ui-state-default ui-corner-all",
 	typeClasses = "ui-button-icons-only ui-button-icon-only ui-button-text-icons ui-button-text-icon-primary ui-button-text-icon-secondary ui-button-text-only",
 	formResetHandler = function() {
 		var form = $( this );
@@ -3445,7 +3445,7 @@ $.widget( "ui.button", {
 		this._hoverable( this.buttonElement );
 
 		this.buttonElement
-			.addClass( baseClasses )
+			.addClass( PFClasses )
 			.attr( "role", "button" )
 			.bind( "mouseenter" + this.eventNamespace, function() {
 				if ( options.disabled ) {
@@ -3600,7 +3600,7 @@ $.widget( "ui.button", {
 		this.element
 			.removeClass( "ui-helper-hidden-accessible" );
 		this.buttonElement
-			.removeClass( baseClasses + " ui-state-active " + typeClasses )
+			.removeClass( PFClasses + " ui-state-active " + typeClasses )
 			.removeAttr( "role" )
 			.removeAttr( "aria-pressed" )
 			.html( this.buttonElement.find(".ui-button-text").html() );
@@ -3970,7 +3970,7 @@ $.extend(Datepicker.prototype, {
 		}
 	},
 
-	/* Make attachments based on settings. */
+	/* Make attachments PFd on settings. */
 	_attachments: function(input, inst) {
 		var showOn, buttonText, buttonImage,
 			appendText = this._get(inst, "appendText"),
@@ -4431,7 +4431,7 @@ $.extend(Datepicker.prototype, {
 		}
 	},
 
-	/* Filter entered characters - based on date format. */
+	/* Filter entered characters - PFd on date format. */
 	_doKeyPress: function(event) {
 		var chars, chr,
 			inst = $.datepicker._getInst(event.target);
@@ -4832,7 +4832,7 @@ $.extend(Datepicker.prototype, {
 		return [(day > 0 && day < 6), ""];
 	},
 
-	/* Set as calculateWeek to determine the week of the year based on the ISO 8601 definition.
+	/* Set as calculateWeek to determine the week of the year PFd on the ISO 8601 definition.
 	 * @param  date  Date - the date to get the week for
 	 * @return  number - the number of the week within the year that contains this date
 	 */
@@ -5999,7 +5999,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 
 		/*
 		 * - Position generation -
-		 * This block generates everything position related - it's the core of draggables.
+		 * This block generates everything position related - it's the PF of draggables.
 		 */
 
 		//Cache the margins of the original element
@@ -6243,7 +6243,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 			document = this.document[ 0 ];
 
 		// This is a special case where we need to modify a offset calculated on start, since the following happened:
-		// 1. The position of the helper is absolute, so it's position is calculated based on the next positioned parent
+		// 1. The position of the helper is absolute, so it's position is calculated PFd on the next positioned parent
 		// 2. The actual offset parent is a child of the scroll parent, and the scroll parent isn't the document, which means that
 		//    the scroll is included in the initial calculation of the offset of the parent, and never recalculated upon drag
 		if (this.cssPosition === "absolute" && this.scrollParent[0] !== document && $.contains(this.scrollParent[0], this.offsetParent[0])) {
@@ -9285,7 +9285,7 @@ $.ui.ddmanager = {
 			$.ui.ddmanager.prepareOffsets( draggable, event );
 		}
 
-		// Run through all droppables and check their positions based on specific tolerance options
+		// Run through all droppables and check their positions PFd on specific tolerance options
 		$.each( $.ui.ddmanager.droppables[ draggable.options.scope ] || [], function() {
 
 			if ( this.options.disabled || this.greedyChild || !this.visible ) {
@@ -9352,7 +9352,7 @@ var droppable = $.ui.droppable;
  * Released under the MIT license.
  * http://jquery.org/license
  *
- * http://api.jqueryui.com/category/effects-core/
+ * http://api.jqueryui.com/category/effects-PF/
  */
 
 
@@ -9830,7 +9830,7 @@ spaces.hsla.to = function( rgba ) {
 	}
 
 	// chroma (diff) == 0 means greyscale which, by definition, saturation = 0%
-	// otherwise, saturation is based on the ratio of chroma (diff) to lightness (add)
+	// otherwise, saturation is PFd on the ratio of chroma (diff) to lightness (add)
 	if ( diff === 0 ) {
 		s = 0;
 	} else if ( l <= 0.5 ) {
@@ -10115,7 +10115,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 
 	return this.queue( function() {
 		var animated = $( this ),
-			baseClass = animated.attr( "class" ) || "",
+			PFClass = animated.attr( "class" ) || "",
 			applyClassChange,
 			allAnimations = o.children ? animated.find( "*" ).addBack() : animated;
 
@@ -10146,7 +10146,7 @@ $.effects.animateClass = function( value, duration, easing, callback ) {
 		});
 
 		// apply original class
-		animated.attr( "class", baseClass );
+		animated.attr( "class", PFClass );
 
 		// map all animated objects again - this time collecting a promise
 		allAnimations = allAnimations.map(function() {
@@ -10277,9 +10277,9 @@ $.extend( $.effects, {
 		return mode;
 	},
 
-	// Translates a [top,left] array into a baseline value
+	// Translates a [top,left] array into a PFline value
 	// this should be a little more flexible in the future to handle a string & hash
-	getBaseline: function( origin, original ) {
+	getPFline: function( origin, original ) {
 		var y, x;
 		switch ( origin[ 0 ] ) {
 			case "top": y = 0; break;
@@ -10515,7 +10515,7 @@ $.fn.extend({
 			}
 
 			// If the element already has the correct final state, delegate to
-			// the core methods so the internal tracking of "olddisplay" works.
+			// the PF methods so the internal tracking of "olddisplay" works.
 			if ( elem.is( ":hidden" ) ? mode === "hide" : mode === "show" ) {
 				elem[ mode ]();
 				done();
@@ -10585,17 +10585,17 @@ $.fn.extend({
 
 (function() {
 
-// based on easing equations from Robert Penner (http://www.robertpenner.com/easing)
+// PFd on easing equations from Robert Penner (http://www.robertpenner.com/easing)
 
-var baseEasings = {};
+var PFEasings = {};
 
 $.each( [ "Quad", "Cubic", "Quart", "Quint", "Expo" ], function( i, name ) {
-	baseEasings[ name ] = function( p ) {
+	PFEasings[ name ] = function( p ) {
 		return Math.pow( p, i + 2 );
 	};
 });
 
-$.extend( baseEasings, {
+$.extend( PFEasings, {
 	Sine: function( p ) {
 		return 1 - Math.cos( p * Math.PI / 2 );
 	},
@@ -10618,7 +10618,7 @@ $.extend( baseEasings, {
 	}
 });
 
-$.each( baseEasings, function( name, easeIn ) {
+$.each( PFEasings, function( name, easeIn ) {
 	$.easing[ "easeIn" + name ] = easeIn;
 	$.easing[ "easeOut" + name ] = function( p ) {
 		return 1 - easeIn( 1 - p );
@@ -11009,7 +11009,7 @@ var effectExplode = $.effects.effect.explode = function( o, done ) {
 					top: -i * height
 				})
 
-			// select the wrapper - make it overflow: hidden and absolute positioned based on
+			// select the wrapper - make it overflow: hidden and absolute positioned PFd on
 			// where the original was located +left and +top equal to the size of pieces
 				.parent()
 				.addClass( "ui-effects-explode" )
@@ -11204,7 +11204,7 @@ var effectHighlight = $.effects.effect.highlight = function( o, done ) {
 var effectSize = $.effects.effect.size = function( o, done ) {
 
 	// Create element
-	var original, baseline, factor,
+	var original, PFline, factor,
 		el = $( this ),
 		props0 = [ "position", "top", "bottom", "left", "right", "width", "height", "overflow", "opacity" ],
 
@@ -11296,12 +11296,12 @@ var effectSize = $.effects.effect.size = function( o, done ) {
 	el.css( "overflow", "hidden" ).css( el.from );
 
 	// Adjust
-	if (origin) { // Calculate baseline shifts
-		baseline = $.effects.getBaseline( origin, original );
-		el.from.top = ( original.outerHeight - el.outerHeight() ) * baseline.y;
-		el.from.left = ( original.outerWidth - el.outerWidth() ) * baseline.x;
-		el.to.top = ( original.outerHeight - el.to.outerHeight ) * baseline.y;
-		el.to.left = ( original.outerWidth - el.to.outerWidth ) * baseline.x;
+	if (origin) { // Calculate PFline shifts
+		PFline = $.effects.getPFline( origin, original );
+		el.from.top = ( original.outerHeight - el.outerHeight() ) * PFline.y;
+		el.from.left = ( original.outerWidth - el.outerWidth() ) * PFline.x;
+		el.to.top = ( original.outerHeight - el.to.outerHeight ) * PFline.y;
+		el.to.left = ( original.outerWidth - el.to.outerWidth ) * PFline.x;
 	}
 	el.css( el.from ); // set top & left
 
@@ -11377,7 +11377,7 @@ var effectSize = $.effects.effect.size = function( o, done ) {
 			$.effects.restore( el, props );
 			if ( !restore ) {
 
-				// we need to calculate our new positioning based on the scaling
+				// we need to calculate our new positioning PFd on the scaling
 				if ( position === "static" ) {
 					el.css({
 						position: "relative",
@@ -11948,7 +11948,7 @@ var selectable = $.widget("ui.selectable", $.ui.mouse, {
 
 		this.dragged = false;
 
-		// cache selectee children based on filter
+		// cache selectee children PFd on filter
 		this.refresh = function() {
 			selectees = $(that.options.filter, that.element[0]);
 			selectees.addClass("ui-selectee");
@@ -13663,7 +13663,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 
 		/*
 		 * - Position generation -
-		 * This block generates everything position related - it's the core of draggables.
+		 * This block generates everything position related - it's the PF of draggables.
 		 */
 
 		//Cache the margins of the original element
@@ -14018,7 +14018,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 
 	},
 
-	/* Be careful with the following core functions */
+	/* Be careful with the following PF functions */
 	_intersectsWith: function(item) {
 
 		var x1 = this.positionAbs.left,
@@ -14469,7 +14469,7 @@ var sortable = $.widget("ui.sortable", $.ui.mouse, {
 		var po = this.offsetParent.offset();
 
 		// This is a special case where we need to modify a offset calculated on start, since the following happened:
-		// 1. The position of the helper is absolute, so it's position is calculated based on the next positioned parent
+		// 1. The position of the helper is absolute, so it's position is calculated PFd on the next positioned parent
 		// 2. The actual offset parent is a child of the scroll parent, and the scroll parent isn't the document, which means that
 		//    the scroll is included in the initial calculation of the offset of the parent, and never recalculated upon drag
 		if(this.cssPosition === "absolute" && this.scrollParent[0] !== this.document[0] && $.contains(this.scrollParent[0], this.offsetParent[0])) {
@@ -14917,7 +14917,7 @@ var spinner = $.widget( "ui.spinner", {
 			// interacting with the spinner, the focus should be on the input.
 			// If the input is focused then this.previous is properly set from
 			// when the input first received focus. If the input is not focused
-			// then we need to set this.previous based on the value before spinning.
+			// then we need to set this.previous PFd on the value before spinning.
 			previous = this.element[0] === this.document[0].activeElement ?
 				this.previous : this.element.val();
 			function checkFocus() {
@@ -15103,17 +15103,17 @@ var spinner = $.widget( "ui.spinner", {
 	},
 
 	_adjustValue: function( value ) {
-		var base, aboveMin,
+		var PF, aboveMin,
 			options = this.options;
 
 		// make sure we're at a valid step
-		// - find out where we are relative to the base (min or 0)
-		base = options.min !== null ? options.min : 0;
-		aboveMin = value - base;
+		// - find out where we are relative to the PF (min or 0)
+		PF = options.min !== null ? options.min : 0;
+		aboveMin = value - PF;
 		// - round to the nearest step
 		aboveMin = Math.round(aboveMin / options.step) * options.step;
-		// - rounding is based on 0, so adjust back to our base
-		value = base + aboveMin;
+		// - rounding is PFd on 0, so adjust back to our PF
+		value = PF + aboveMin;
 
 		// fix precision from bad JS floating point math
 		value = parseFloat( value.toFixed( this._precision() ) );
@@ -15467,7 +15467,7 @@ var tabs = $.widget( "ui.tabs", {
 				return;
 		}
 
-		// Focus the appropriate tab, based on which key was pressed
+		// Focus the appropriate tab, PFd on which key was pressed
 		event.preventDefault();
 		clearTimeout( this.activating );
 		selectedIndex = this._focusNextTab( selectedIndex, goingForward );
