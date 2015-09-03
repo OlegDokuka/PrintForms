@@ -5,13 +5,23 @@
     export class DocumentView extends GroupView<ComponentModel.DocumentViewModel> {
         private _presenter: GroupView<ComponentModel.GroupViewModel>;
 
+        public get presenter() {
+            return this._presenter;
+        }
+
+        public set presenter(groupView: GroupView<ComponentModel.GroupViewModel>) {
+            this._presenter = groupView;
+            this.element.append(groupView["element"].attr("ui-presenter", ""));
+            groupView["_parent"] = this;
+        }
+
         protected createElement() {
             this.element = $("<div>").appendTo("body");
         }
         protected initializeElement() {
-            this.element.attr("ui-document", "");
-
             super.initializeElement();
+
+            this.element.attr("ui-document", "").draggable("disable");
         }
 
         public removeViewAt(index: number): boolean {

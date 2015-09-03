@@ -3,6 +3,7 @@
 module PF.View {
     import BaseViewModel = ComponentModel.BaseViewModel;
     import NotifyCollectionChangedData = Collections.Specialized.NotifyCollectionChangedData;
+
     export class GroupView<T extends ComponentModel.GroupViewModel> extends View<T>
         implements Interface.IContainer, Interface.IDrop {
 
@@ -16,6 +17,8 @@ module PF.View {
                     if (!view) {
                         throw new Error("Something bad was happed with this view");
                     }
+
+                    $(ui.draggable[0]).css({ left: 0, top: 0 });
 
                     this.onDrop(view);
                 }

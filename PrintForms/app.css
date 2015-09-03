@@ -12,14 +12,16 @@ span {
     box-shadow: rgba(0, 0, 0, 0.65) 0px 0px 20px;
 }
 
-[ui-document] {
-    width: 1000px;
-    height: 1000px;
-    padding: 10px;
-}
-
+[ui-document],
 [ui-presenter] {
     width: 100%;
     height: 100%;
     position: static !important;
+}
+
+
+[ui-document] {
+    width: 1000px;
+    height: 1000px;
+    padding: 10px;
 }

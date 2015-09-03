@@ -6,6 +6,7 @@
 /// <reference path="Base/View/BaseView.ts"/>
 /// <reference path="Base/View/View.ts"/>
 /// <reference path="Base/View/GroupView.ts"/>
+/// <reference path="Extra/ComponentModel/TextViewModel.ts"/>
 /// <reference path="Extra/View/TextView.ts"/>
 /// <reference path="Extra/ComponentModel/DocumentViewModel.ts"/>
 /// <reference path="Extra/View/DocumentView.ts"/>
@@ -30,21 +31,33 @@ import DocumentView = PF.View.DocumentView;
 import DocumentViewModel = PF.ComponentModel.DocumentViewModel;
 import LinearLayout = PF.View.LinearLayout
 import LinearLayoutViewModel = PF.ComponentModel.LinearLayoutViewModel;
+import TextView = PF.View.TextView;
+import TextViewModel = PF.ComponentModel.TextViewModel;
 
 declare var $;
-var cntView;
-var textViewModel: PF.ComponentModel.TextViewModel, containerViewModel;
 
 window.onload = () => {
     let document: DocumentView, documentVM: DocumentViewModel;
     let presenter: LinearLayout<LinearLayoutViewModel>, presenterViewModel: LinearLayoutViewModel;
+    let view: TextView, viewModel: TextViewModel;
+    let container: LinearLayout<LinearLayoutViewModel>, containerViewModel: LinearLayoutViewModel;
 
     document = new DocumentView();
     documentVM = new DocumentViewModel();
     presenter = new LinearLayout();
     presenterViewModel = new LinearLayoutViewModel();
+    view = new TextView();
+    viewModel = new TextViewModel();
+    container = new LinearLayout();
+    containerViewModel = new LinearLayoutViewModel();
+
 
     document.dataContext = documentVM;
     presenter.dataContext = presenterViewModel;
-    document.onDrop(presenter);
+    document.presenter = presenter;
+    view.dataContext = viewModel;
+    container.dataContext = containerViewModel;
+
+    document.appendView(container);
+    document.appendView(view);
 };
